@@ -1,11 +1,12 @@
 package net.intelie.challenges;
 
+import java.util.List;
+
 /**
  * An abstraction of an event store.
  * <p>
- * Events may be stored in memory, data files, a database, on a remote
- * server, etc. For this challenge, you should implement an in-memory
- * event event store.
+ * Events may be stored in memory, data files, a database, on a remote server,
+ * etc. For this challenge, you should implement an in-memory event event store.
  */
 public interface EventStore {
     /**
@@ -34,4 +35,10 @@ public interface EventStore {
      * (inclusive) and {@param endTime} (exclusive).
      */
     EventIterator query(String type, long startTime, long endTime);
+
+    /**
+     * return all stored events
+     * @return
+     */
+    List<Event> getEvents();
 }
