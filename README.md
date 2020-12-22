@@ -1,7 +1,4 @@
 # Implement EventStore
-
-In this challenge, you will create a class that implements the `EventStore` 
-interface.
  
 ```java
 public interface EventStore {
