@@ -19,7 +19,7 @@ public class Event {
         return type;
     }
 
-    public LocalDate getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 }
