@@ -36,7 +36,7 @@ public class EventIteratorImpl implements EventIterator {
 
     @Override
     public void remove() {
-        if (current != null && !events.isEmpty()) {
+        if (!events.isEmpty()) {
             events.remove(iterator);
             this.current = null;
         }
@@ -44,6 +44,6 @@ public class EventIteratorImpl implements EventIterator {
 
     @Override
     public void close() throws Exception {
-        events = null;
+        events.clear();
     }
 }
