@@ -1,5 +1,6 @@
 package net.intelie.challenges;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public interface EventStore {
      * {@param type} and timestamp between {@param startTime}
      * (inclusive) and {@param endTime} (exclusive).
      */
-    EventIterator query(String type, long startTime, long endTime);
+    EventIterator query(String type, LocalDateTime startTime, LocalDateTime endTime);
 
     /**
      * return all stored events

@@ -12,9 +12,12 @@ public class EventStoreImpl implements EventStore {
     // as per this topic's instructions:
     // https://www.codejava.net/java-core/collections/understanding-collections-and-thread-safety-in-java
     List<Event> events = Collections.synchronizedList(new ArrayList<Event>());
-    
-	private LocalDateTime startTime;
 
+    @Override
+	public List<Event> getEvents() {
+		return events;
+    }
+    
     @Override
     public void insert(Event event) {
         System.out.println("Testing insertion of an event " + event);
@@ -38,16 +41,16 @@ public class EventStoreImpl implements EventStore {
 
     @Override
     public EventIterator query(String type, LocalDateTime startTime, LocalDateTime endTime) {
-        this.startTime = startTime;
         System.out.println(
         "Seeking for type " + type + 
         " Starting at time " +  startTime + 
         " ending at " + endTime);
 
-        // Using Streams to filter by fields
+        // Filtering by fields using stream
         return new EventIteratorImpl(
                 Collections.synchronizedList(events.stream().filter(event -> event.getType().equals(type))
                         .filter(event -> event.getTimestamp().isEqual(startTime) || event.getTimestamp().isAfter(startTime))
                         .filter(event -> event.getTimestamp().isBefore(endTime)).collect(Collectors.toList())));
     }
+
 }

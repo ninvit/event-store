@@ -4,14 +4,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDateTime;
+
 public class EventTest {
     @Test
     public void thisIsAWarning() throws Exception {
-        Event event = new Event("some_type", 123L);
+        Event event = new Event("some_type", LocalDateTime.now());
+        LocalDateTime testDate = event.getTimestamp();
 
-        //THIS IS A WARNING:
-        //Some of us (not everyone) are coverage freaks.
-        assertEquals(123L, event.timestamp());
-        assertEquals("some_type", event.type());
+        System.out.println("Testing auto created Date " + testDate);
+        assertEquals(testDate, event.getTimestamp());
+        assertEquals("some_type", event.getType());
     }
 }
