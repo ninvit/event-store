@@ -1,6 +1,5 @@
 package net.intelie.challenges;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
