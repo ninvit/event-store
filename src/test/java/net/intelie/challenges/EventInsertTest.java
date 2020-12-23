@@ -8,12 +8,18 @@ import java.time.LocalDateTime;
 
 public class EventInsertTest {
     @Test
-    public void thisIsAWarning() throws Exception {
-        Event event = new Event("some_type", LocalDateTime.now());
-        LocalDateTime testDate = event.getTimestamp();
+    public void insertEvent() throws Exception {
 
-        System.out.println("Testing auto created Date " + testDate);
-        assertEquals(testDate, event.getTimestamp());
-        assertEquals("some_type", event.getType());
+        EventStore eventStore = new EventStoreImpl();
+    
+        LocalDateTime testDateTime = LocalDateTime.now();
+
+        Event event = new Event("teste", testDateTime);
+
+
+        eventStore.insert(event);
+
+        System.out.println(eventStore.query("teste", LocalDateTime.now(), LocalDateTime.now()));
+
     }
 }
