@@ -47,6 +47,8 @@ public class EventStoreImpl implements EventStore {
         " ending at " + endTime);
 
         // Filtering by fields using stream
+        // Reference:
+        // https://www.jrebel.com/blog/using-java-stream-map-and-java-stream-filter
         return new EventIteratorImpl(
                 Collections.synchronizedList(events.stream().filter(event -> event.getType().equals(type))
                         .filter(event -> event.getTimestamp().isEqual(startTime) || event.getTimestamp().isAfter(startTime))

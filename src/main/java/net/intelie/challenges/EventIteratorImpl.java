@@ -16,9 +16,9 @@ public class EventIteratorImpl implements EventIterator {
 
     @Override
     public boolean moveNext() {
-        if (events == null || events.isEmpty()) {
+        if (events.isEmpty())
             return false;
-        } else {
+        else {
 
             if (iterator++ < events.size() - 1) {
                 current = events.get(iterator);
