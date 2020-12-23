@@ -9,4 +9,7 @@ public interface EventStore {
     EventIterator query(String type, long startTime, long endTime);
 }
 ```
-Implementation to store events with a thread-safety code
+Storing events using a thread-safe solution
+Reference:
+https://www.codejava.net/java-core/collections/understanding-collections-and-thread-safety-in-java
+
