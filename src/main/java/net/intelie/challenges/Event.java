@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
  * This is just an event stub, feel free to expand it if needed.
  */
 public class Event {
-    private final String type;
-    private final LocalDateTime timestamp;
+    private String type;
+    private LocalDateTime timestamp;
 
     public Event(String type, LocalDateTime timestamp) {
         this.type = type;

@@ -8,7 +8,7 @@ public class EventIteratorImpl implements EventIterator {
 
     Event current;
 
-    int currentIndex = -1;
+    int iterator = -1;
 
     public EventIteratorImpl(List<Event> events) {
         this.events = events;
@@ -20,8 +20,8 @@ public class EventIteratorImpl implements EventIterator {
             return false;
         } else {
 
-            if (currentIndex++ < events.size() - 1) {
-                current = events.get(currentIndex);
+            if (iterator++ < events.size() - 1) {
+                current = events.get(iterator);
                 return true;
             } else {
                 return false;
@@ -37,7 +37,7 @@ public class EventIteratorImpl implements EventIterator {
     @Override
     public void remove() {
         if (current != null && !events.isEmpty()) {
-            events.remove(currentIndex);
+            events.remove(iterator);
             this.current = null;
         }
     }
