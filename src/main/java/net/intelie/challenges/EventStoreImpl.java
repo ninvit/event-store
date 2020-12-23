@@ -20,7 +20,7 @@ public class EventStoreImpl implements EventStore {
     
     @Override
     public void insert(Event event) {
-        System.out.println("Testing insertion of an event " + event);
+        System.out.println("Testing insertion of an event " + event.getType());
         try {
             events.add(event);
         } catch (Exception e) {
