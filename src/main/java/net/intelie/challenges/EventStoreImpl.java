@@ -14,13 +14,12 @@ public class EventStoreImpl implements EventStore {
     List<Event> events = Collections.synchronizedList(new ArrayList<Event>());
 
     @Override
-	public List<Event> getEvents() {
+	public synchronized List<Event> getEvents() {
 		return events;
     }
     
     @Override
-    public void insert(Event event) {
-        System.out.println("Testing insertion of an event " + event.getType());
+    public synchronized void insert(Event event) {
         try {
             events.add(event);
         } catch (Exception e) {
@@ -29,23 +28,12 @@ public class EventStoreImpl implements EventStore {
     }
 
     @Override
-    public void removeAll(String type) {
-
-        System.out.println("Looking for " + type);
-
-        int size = events.size();
-
+    public synchronized void removeAll(String type) {
         events.removeIf(event -> event.getType().equals(type));
-        System.out.println("Removed " + (size - events.size()) + " events");
     }
 
     @Override
-    public EventIterator query(String type, LocalDateTime startTime, LocalDateTime endTime) {
-        System.out.println(
-        "Seeking for type " + type + 
-        " Starting at time " +  startTime + 
-        " ending at " + endTime);
-
+    public synchronized EventIterator query(String type, LocalDateTime startTime, LocalDateTime endTime) {
         // Filtering by fields using stream
         // Reference:
         // https://www.jrebel.com/blog/using-java-stream-map-and-java-stream-filter

@@ -14,11 +14,24 @@ public class Event {
         this.timestamp = timestamp;
     }
 
+    public Event(){
+        
+    }
+
+
     public String getType() {
         return type;
     }
 
     public LocalDateTime getTimestamp() {
         return timestamp;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

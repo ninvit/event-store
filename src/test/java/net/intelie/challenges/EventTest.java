@@ -2,18 +2,31 @@ package net.intelie.challenges;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.time.LocalDateTime;
 
 public class EventTest {
     @Test
-    public void thisIsAWarning() throws Exception {
-        Event event = new Event("some_type", LocalDateTime.now());
-        LocalDateTime testDate = event.getTimestamp();
+    public void insertEvent() throws Exception {
 
-        System.out.println("Testing auto created Date " + testDate);
-        assertEquals(testDate, event.getTimestamp());
-        assertEquals("some_type", event.getType());
+        EventStore eventStore = new EventStoreImpl();
+
+        LocalDateTime testDateTime = LocalDateTime.now();
+
+        Event event = new Event();
+        event.setType("TestType");
+        event.setTimestamp(testDateTime);
+
+        eventStore.insert(event);
+
+        Event event2 = new Event();
+        event2.setType("TestType2");
+        event2.setTimestamp(testDateTime);
+
+        eventStore.insert(event2);
+
+        System.out.println(eventStore.getEvents().get(0).getType());
+        
+        System.out.println(eventStore.getEvents().get(1).getType());
+
     }
 }
