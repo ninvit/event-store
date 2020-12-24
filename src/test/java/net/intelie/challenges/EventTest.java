@@ -5,17 +5,21 @@ import org.junit.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class EventTest {
 
     EventStore eventStore = new EventStoreImpl();
-    
-    DateTimeFormatter dateFormat;
+    List<Event> events = eventStore.getEvents();
+
+    private void listEvents() {
+        for (Event event : events) {
+            System.out.println(event.getType() + " - " + event.getTimestamp());
+        }
+    }
 
     @Test
-    public void insertEvent() throws Exception {
+    public void insertEvents() throws Exception {
 
         Event event = new Event();
         event.setType("TestType");
@@ -49,22 +53,30 @@ public class EventTest {
     @Test
     public void insertAndListEvents() throws Exception {
 
-        insertEvent();
+        insertEvents();
 
-        System.out.println("\nList testing");
+        System.out.println("\nList testing: " + eventStore.getEvents().size() + " event(s) found");
 
-        List<Event> events = eventStore.getEvents();
+        listEvents();
 
         assertThat(eventStore.getEvents()).isNotNull();
-
-
-        for (Event event : events) {
-            System.out.println(event.getType() + " " + event.getTimestamp());
-        }
     }
+
+    
 
     @Test
     public void removeEventByType() throws Exception {
+
+        String excludedType = "TestType2";
+
+        insertEvents();
+        
+        
+        eventStore.removeAll(excludedType);
+        System.out.println("\nEvent with type " + excludedType + " was excluded");
+
+        System.out.println("\nRemaining events: ");
+        listEvents();
 
     }
 }
