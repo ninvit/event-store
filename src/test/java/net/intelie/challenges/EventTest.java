@@ -3,8 +3,6 @@ package net.intelie.challenges;
 import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,12 +11,15 @@ public class EventTest {
     EventStore eventStore = new EventStoreImpl();
     List<Event> events = eventStore.getEvents();
 
-    Event event = new Event("TestType", LocalDateTime.now());
-    Event event2 = new Event("TestType2", LocalDateTime.now().plusNanos(1L));
+    LocalDateTime inicialTime = LocalDateTime.now();    
+    LocalDateTime endTime = LocalDateTime.now().plusMinutes(2L);
+
+    Event event = new Event("TestType", inicialTime);
+    Event event2 = new Event("TestType2", inicialTime);
 
 
     // List stored events
-    private void listEvents() {
+    public void listEvents() {
         for (Event event : events) {
             System.out.println(event.getType() + " - " + event.getTimestamp());
         }
@@ -66,7 +67,7 @@ public class EventTest {
         }
     }
 
-    // Simple test to remove "TestType2 from the list"
+    // Simple test to add events to store and remove "TestType2" event by its type
     @Test
     public void removeEventByType() throws Exception {
 
@@ -83,10 +84,6 @@ public class EventTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void listEventsByQuery() throws Exception {
     }
 
 }
