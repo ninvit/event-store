@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class EventStoreImpl implements EventStore {
 
-    // Using Synchronized Wrappers
-    // as per this topic's instructions:
+    // This implementation is using Synchronized blocks and Collections.syncrhonizedList to store events.  
+    // The decision to use this was taken after reading this topic's instructions about Thread Safety:
     // https://www.codejava.net/java-core/collections/understanding-collections-and-thread-safety-in-java
     List<Event> events = Collections.synchronizedList(new ArrayList<Event>());
 
