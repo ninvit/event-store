@@ -13,6 +13,10 @@ public class EventTest {
     EventStore eventStore = new EventStoreImpl();
     List<Event> events = eventStore.getEvents();
 
+    Event event = new Event("TestType", LocalDateTime.now());
+    Event event2 = new Event("TestType2", LocalDateTime.now().plusNanos(1L));
+
+
     // List stored events
     private void listEvents() {
         for (Event event : events) {
@@ -24,13 +28,6 @@ public class EventTest {
     @Test
     public void insertEvents() throws Exception {
 
-        Event event = new Event();
-        event.setType("TestType");
-        event.setTimestamp(LocalDateTime.now());
-
-        Event event2 = new Event();
-        event2.setType("TestType2");
-        event2.setTimestamp(LocalDateTime.now());
 
         try {
             System.out.println("Testing 1st event insertion: " + event.getType());
@@ -57,37 +54,39 @@ public class EventTest {
     @Test
     public void insertAndListEvents() throws Exception {
 
-        insertEvents();
+        try {insertEvents();
 
         System.out.println("\nList testing: " + eventStore.getEvents().size() + " event(s) found");
 
         listEvents();
 
         assertThat(eventStore.getEvents()).isNotNull();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    // Simple test to remove "TestType2 from the list"
     @Test
     public void removeEventByType() throws Exception {
 
         String excludedType = "TestType2";
 
-        insertEvents();
-
-        eventStore.removeAll(excludedType);
-        System.out.println("\nEvent with type " + excludedType + " was excluded");
-
-        System.out.println("\nRemaining events: ");
-        listEvents();
-
-    }
-
-    public static void main(String[] args) {
-        byte[] i = null;
         try {
-            System.in.read(i);
-        } catch (IOException e) {
+            insertEvents();
+
+            eventStore.removeAll(excludedType);
+            System.out.println("\nEvent with type " + excludedType + " was excluded");
+
+            System.out.println("\nRemaining events: ");
+            listEvents();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(i);
     }
+
+    @Test
+    public void listEventsByQuery() throws Exception {
+    }
+
 }
