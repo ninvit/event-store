@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,12 +13,14 @@ public class EventTest {
     EventStore eventStore = new EventStoreImpl();
     List<Event> events = eventStore.getEvents();
 
+    // List stored events
     private void listEvents() {
         for (Event event : events) {
             System.out.println(event.getType() + " - " + event.getTimestamp());
         }
     }
 
+    // Insertion of 2 events named "TestType" and "TestType2"
     @Test
     public void insertEvents() throws Exception {
 
@@ -39,7 +42,7 @@ public class EventTest {
             System.out.println("\n" + eventStore.getEvents().size() + " events where inserted");
 
         } catch (Exception e) {
-            System.out.println("error " + e.getMessage());
+            e.printStackTrace();
         }
 
         assertThat(eventStore.getEvents()).isNotNull();
@@ -50,6 +53,7 @@ public class EventTest {
         assertThat(eventStore.getEvents().get(1).getType()).isEqualTo(event2.getType());
     }
 
+    // Inserting and Listing stored events
     @Test
     public void insertAndListEvents() throws Exception {
 
@@ -62,21 +66,28 @@ public class EventTest {
         assertThat(eventStore.getEvents()).isNotNull();
     }
 
-    
-
     @Test
     public void removeEventByType() throws Exception {
 
         String excludedType = "TestType2";
 
         insertEvents();
-        
-        
+
         eventStore.removeAll(excludedType);
         System.out.println("\nEvent with type " + excludedType + " was excluded");
 
         System.out.println("\nRemaining events: ");
         listEvents();
 
+    }
+
+    public static void main(String[] args) {
+        byte[] i = null;
+        try {
+            System.in.read(i);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(i);
     }
 }
